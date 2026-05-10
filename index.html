@@ -524,6 +524,123 @@
     section { padding: 3rem 1.25rem; }
     .pipeline { font-size: 0.65rem; }
   }
+
+  /* ── LIVE DEMO ── */
+  .demo-shell {
+    background: #020810;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .demo-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid var(--border2);
+    background: rgba(0,212,255,0.03);
+  }
+  .demo-dots { display: flex; gap: 6px; }
+  .demo-title {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+  .demo-run-btn {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    padding: 0.35rem 1rem;
+    border: 1px solid var(--accent2);
+    color: var(--accent2);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 2px;
+  }
+  .demo-run-btn:hover { background: rgba(0,255,157,0.08); }
+  .demo-run-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .demo-output {
+    padding: 1.25rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    line-height: 1.9;
+    min-height: 200px;
+    max-height: 520px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+  }
+  .demo-output::-webkit-scrollbar { width: 4px; }
+  .demo-output::-webkit-scrollbar-track { background: transparent; }
+  .demo-output::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 2px; }
+  .log-line { display: block; animation: logFade 0.25s ease forwards; }
+  @keyframes logFade { from { opacity:0; transform:translateX(-6px); } to { opacity:1; transform:none; } }
+  .log-ts   { color: #2a4a5e; }
+  .log-orch { color: #00d4ff; font-weight: bold; }
+  .log-agent{ color: #00ff9d; font-weight: bold; }
+  .log-rep  { color: #ff6b35; font-weight: bold; }
+  .log-text { color: #8badc4; }
+  .log-hi   { color: #e8f4fd; }
+  .log-warn { color: #ffbd2e; }
+  .log-ok   { color: #00ff9d; }
+  .log-err  { color: #ff5f57; }
+  .log-dim  { color: #2a4a5e; }
+  .log-cyan { color: #00d4ff; }
+  .log-banner {
+    display: block;
+    color: #00d4ff;
+    border-top: 1px solid rgba(0,212,255,0.15);
+    margin: 0.5rem 0 0.25rem;
+    padding-top: 0.5rem;
+    letter-spacing: 0.08em;
+  }
+  .demo-gate {
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid var(--border2);
+    display: none;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    background: rgba(255,189,46,0.03);
+  }
+  .demo-gate.visible { display: flex; }
+  .gate-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: #ffbd2e;
+    flex: 1;
+    min-width: 200px;
+  }
+  .gate-approve, .gate-reject {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    padding: 0.5rem 1.25rem;
+    border: 1px solid;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 2px;
+  }
+  .gate-approve { border-color: var(--accent2); color: var(--accent2); }
+  .gate-approve:hover { background: rgba(0,255,157,0.1); }
+  .gate-reject  { border-color: #ff5f57; color: #ff5f57; }
+  .gate-reject:hover  { background: rgba(255,95,87,0.1); }
+  .demo-reset {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    padding: 0.35rem 0.5rem;
+    transition: color 0.2s;
+    display: none;
+  }
+  .demo-reset:hover { color: var(--accent); }
+  .demo-reset.visible { display: block; }
 </style>
 </head>
 <body>
@@ -535,6 +652,7 @@
     <li><a href="https://tanstegall.github.io/ai-security-portfolio/#about">ABOUT</a></li>
     <li><a href="https://tanstegall.github.io/ai-security-portfolio/#projects">PROJECTS</a></li>
     <li><a href="#docs">DOCS</a></li>
+    <li><a href="#demo">DEMO</a></li>
     <li><a href="https://github.com/TanStegall/multi-agent-ai-risk-analyst" target="_blank">GITHUB ↗</a></li>
   </ul>
 </nav>
@@ -818,6 +936,256 @@
     <div class="check-item reveal" style="border-color:rgba(0,255,157,0.2);"><span class="check-icon" style="color:var(--accent2);">[✓]</span>Runnable Python demo — zero dependencies</div>
   </div>
 </section>
+
+<!-- LIVE DEMO -->
+<section id="demo">
+  <div class="section-label">06 // LIVE DEMO</div>
+  <div class="section-title">Run the pipeline</div>
+  <div class="section-divider"></div>
+
+  <div class="demo-shell reveal">
+    <div class="demo-topbar">
+      <div class="demo-dots">
+        <div class="t-dot t-red"></div>
+        <div class="t-dot t-yellow"></div>
+        <div class="t-dot t-green"></div>
+      </div>
+      <div class="demo-title">maars_demo.py — interactive simulation</div>
+      <div style="display:flex;gap:0.75rem;align-items:center;">
+        <button class="demo-reset" id="resetBtn" onclick="resetDemo()">↺ reset</button>
+        <button class="demo-run-btn" id="runBtn" onclick="runDemo()">▶ RUN ASSESSMENT</button>
+      </div>
+    </div>
+    <div class="demo-output" id="demoOutput">
+      <span class="log-line" style="color:#2a4a5e;">// Click RUN ASSESSMENT to start the 6-agent pipeline</span>
+      <span class="log-line" style="color:#2a4a5e;">// Each agent processes its data and passes results to the Orchestrator</span>
+      <span class="log-line" style="color:#2a4a5e;">// The pipeline halts at the human approval gate — you decide the outcome</span>
+    </div>
+    <div class="demo-gate" id="demoGate">
+      <div class="gate-label">⚠ PIPELINE HALTED — Security Manager review required before delivery</div>
+      <button class="gate-approve" onclick="gateDecision('approve')">✓ APPROVE</button>
+      <button class="gate-reject"  onclick="gateDecision('reject')">✗ REJECT</button>
+    </div>
+  </div>
+</section>
+
+<script>
+const out = document.getElementById('demoOutput');
+const gate = document.getElementById('demoGate');
+const runBtn = document.getElementById('runBtn');
+const resetBtn = document.getElementById('resetBtn');
+
+function ts() {
+  const n = new Date();
+  return String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')+':'+String(n.getSeconds()).padStart(2,'0');
+}
+
+function line(html) {
+  const s = document.createElement('span');
+  s.className = 'log-line';
+  s.innerHTML = html;
+  out.appendChild(s);
+  out.scrollTop = out.scrollHeight;
+}
+
+function banner(title) {
+  const dashes = '─'.repeat(Math.max(0, 44 - title.length));
+  line('<span class="log-banner">── ' + title + ' ' + dashes + '</span>');
+}
+
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function runDemo() {
+  out.innerHTML = '';
+  gate.classList.remove('visible');
+  runBtn.disabled = true;
+  resetBtn.classList.remove('visible');
+
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-orch">MAARS              </span>  <span class="log-hi">Assessment scope: Enterprise Production Environment</span>');
+  await delay(300);
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-orch">MAARS              </span>  <span class="log-hi">Agents registered: 5 specialist + 1 orchestrator</span>');
+  await delay(300);
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-orch">MAARS              </span>  <span class="log-hi">Human approval gate: <span class="log-ok">ENABLED</span></span>');
+  await delay(500);
+
+  banner('PHASE 1 · ASSET CLASSIFICATION');
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-orch">Orchestrator       </span>  Dispatching task → <span class="log-cyan">AssetContextAgent</span>');
+  await delay(600);
+  var assets = [
+    ['Core Banking Platform',   'HIGH',   'Core business logic; breach = major operational impact'],
+    ['Customer Identity Store', 'HIGH',   'Data at rest; breach = confidentiality + regulatory risk'],
+    ['Threat Intel Dashboard',  'MEDIUM', 'Internal exposure; breach = lateral movement risk'],
+    ['Dev CI/CD Pipeline',      'MEDIUM', 'Supply chain vector; breach = code integrity risk'],
+    ['External API Gateway',    'HIGH',   'External-facing; breach = perimeter collapse'],
+  ];
+  for (var i=0; i<assets.length; i++) {
+    var a=assets[i], col=a[1]==='HIGH'?'log-err':a[1]==='MEDIUM'?'log-warn':'log-ok';
+    line('<span class="log-dim">['+ts()+']</span>  <span class="log-agent">AssetContextAgent  </span>  <span class="log-hi">'+a[0].padEnd(28)+'</span> → <span class="'+col+'">'+a[1]+'</span>  <span class="log-dim">'+a[2]+'</span>');
+    await delay(350);
+  }
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-orch">Orchestrator       </span>  Received ← <span class="log-cyan">AssetContextAgent</span>  <span class="log-hi">5 assets classified</span>');
+  await delay(500);
+
+  banner('PHASE 2 · VULNERABILITY SCORING');
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-orch">Orchestrator       </span>  Dispatching task → <span class="log-cyan">VulnerabilityAgent</span>');
+  await delay(600);
+  var cves = [
+    ['CVE-2024-1001','9.8','CRITICAL','Core Banking Platform, Customer Identity Store'],
+    ['CVE-2024-1002','9.1','CRITICAL','External API Gateway'],
+    ['CVE-2024-1003','8.2','HIGH',    'Threat Intel Dashboard'],
+    ['CVE-2024-1004','7.5','HIGH',    'Dev CI/CD Pipeline'],
+    ['CVE-2024-1005','6.3','MEDIUM',  'Core Banking Platform, External API Gateway'],
+    ['CVE-2024-1006','4.1','MEDIUM',  'Core Banking Platform'],
+  ];
+  for (var i=0; i<cves.length; i++) {
+    var c2=cves[i], col=c2[2]==='CRITICAL'||c2[2]==='HIGH'?'log-err':'log-warn';
+    line('<span class="log-dim">['+ts()+']</span>  <span class="log-agent">VulnerabilityAgent </span>  <span class="log-hi">'+c2[0]+'</span>  CVSS <span class="'+col+'">'+c2[1]+'</span>  <span class="'+col+'">'+c2[2].padEnd(8)+'</span>  <span class="log-dim">'+c2[3]+'</span>');
+    await delay(350);
+  }
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-orch">Orchestrator       </span>  Received ← <span class="log-cyan">VulnerabilityAgent</span>  <span class="log-hi">6 CVEs scored</span>');
+  await delay(500);
+
+  banner('PHASE 3 · THREAT INTELLIGENCE');
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-orch">Orchestrator       </span>  Dispatching task → <span class="log-cyan">ThreatIntelAgent</span>');
+  await delay(600);
+  var ttps = [
+    ['AML.T0051','LLM Prompt Injection',      'HIGH',  'CRITICAL'],
+    ['AML.T0020','Poison Training Data',       'MEDIUM','HIGH'],
+    ['AML.T0043','Craft Adversarial Data',     'MEDIUM','HIGH'],
+    ['AML.T0054','LLM Jailbreak',              'MEDIUM','HIGH'],
+    ['AML.T0040','ML Inference API Access',    'LOW',   'MEDIUM'],
+    ['AML.T0056','LLM Meta Prompt Extraction', 'MEDIUM','MEDIUM'],
+  ];
+  for (var i=0; i<ttps.length; i++) {
+    var t=ttps[i];
+    var lc=t[2]==='HIGH'?'log-err':t[2]==='MEDIUM'?'log-warn':'log-ok';
+    var ic=t[3]==='CRITICAL'?'log-err':t[3]==='HIGH'?'log-warn':'log-ok';
+    line('<span class="log-dim">['+ts()+']</span>  <span class="log-agent">ThreatIntelAgent   </span>  <span class="log-cyan">'+t[0]+'</span>  <span class="log-hi">'+t[1].padEnd(30)+'</span>  L:<span class="'+lc+'">'+t[2].padEnd(8)+'</span>  I:<span class="'+ic+'">'+t[3]+'</span>');
+    await delay(350);
+  }
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-orch">Orchestrator       </span>  Received ← <span class="log-cyan">ThreatIntelAgent</span>  <span class="log-hi">6 ATLAS TTPs mapped</span>');
+  await delay(500);
+
+  banner('PHASE 4 · CONTROL GAP ANALYSIS');
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-orch">Orchestrator       </span>  Dispatching task → <span class="log-cyan">ControlMappingAgent</span>');
+  await delay(600);
+  var gaps = [
+    ['GAP-001','OWASP LLM','LLM01',    'HIGH',  'No infrastructure-layer prompt injection defense'],
+    ['GAP-002','OWASP LLM','LLM08',    'HIGH',  'Human gate is workflow-only, not cryptographic'],
+    ['GAP-003','NIST RMF', 'AC-6',     'HIGH',  'Tool allowlists enforced at prompt layer only'],
+    ['GAP-004','NIST RMF', 'AU-10',    'HIGH',  'Audit log not append-only; tampering possible'],
+    ['GAP-005','OWASP LLM','LLM03',    'HIGH',  'Single TI feed — no cross-validation'],
+    ['GAP-006','ATLAS',    'AML.T0056','MEDIUM','No system prompt extraction detection'],
+  ];
+  for (var i=0; i<gaps.length; i++) {
+    var g=gaps[i], col=g[3]==='HIGH'?'log-err':'log-warn';
+    line('<span class="log-dim">['+ts()+']</span>  <span class="log-agent">ControlMappingAgent</span>  <span class="log-cyan">'+g[0]+'</span>  [<span class="log-hi">'+g[1].padEnd(10)+'</span>]  <span class="log-hi">'+g[2].padEnd(10)+'</span>  <span class="'+col+'">'+g[3].padEnd(7)+'</span>  <span class="log-dim">'+g[4]+'</span>');
+    await delay(350);
+  }
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-orch">Orchestrator       </span>  Received ← <span class="log-cyan">ControlMappingAgent</span>  <span class="log-hi">6 gaps identified</span>');
+  await delay(500);
+
+  banner('PHASE 5 · REPORT GENERATION');
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-orch">Orchestrator       </span>  Dispatching task → <span class="log-cyan">ReportGeneratorAgent</span>');
+  await delay(700);
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-rep">ReportGeneratorAgent</span>  Risk register compiled  →  <span class="log-hi">8 entries</span>');
+  await delay(400);
+  var hash = Array.from({length:32},function(){return '0123456789abcdef'[Math.floor(Math.random()*16)];}).join('');
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-rep">ReportGeneratorAgent</span>  Report hash recorded   →  <span class="log-cyan">'+hash+'...</span>');
+  await delay(400);
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-orch">Orchestrator       </span>  Received ← <span class="log-cyan">ReportGeneratorAgent</span>  <span class="log-hi">8 risks in register</span>');
+  await delay(500);
+
+  banner('RISK REGISTER SUMMARY');
+  var risks = [
+    ['RR-001','20/25','CRITICAL','Core Banking Platform',   'CVE-2024-1001'],
+    ['RR-002','20/25','CRITICAL','Customer Identity Store', 'CVE-2024-1001'],
+    ['RR-003','20/25','CRITICAL','External API Gateway',    'CVE-2024-1002'],
+    ['RR-006','15/25','HIGH',    'Core Banking Platform',   'CVE-2024-1005'],
+    ['RR-007','15/25','HIGH',    'External API Gateway',    'CVE-2024-1005'],
+    ['RR-008','15/25','HIGH',    'Core Banking Platform',   'CVE-2024-1006'],
+    ['RR-004','12/25','HIGH',    'Threat Intel Dashboard',  'CVE-2024-1003'],
+    ['RR-005','12/25','HIGH',    'Dev CI/CD Pipeline',      'CVE-2024-1004'],
+  ];
+  line('<span class="log-dim">  ID       SCORE    LEVEL      ASSET                        CVE</span>');
+  line('<span class="log-dim">  ' + '─'.repeat(70) + '</span>');
+  for (var i=0; i<risks.length; i++) {
+    var r=risks[i], col=r[2]==='CRITICAL'?'log-err':'log-warn';
+    line('  <span class="log-hi">'+r[0]+'</span>  <span class="log-cyan">'+r[1].padEnd(8)+'</span><span class="'+col+'">'+r[2].padEnd(10)+'</span><span class="log-hi">'+r[3].padEnd(28)+'</span><span class="log-dim">'+r[4]+'</span>');
+    await delay(120);
+  }
+  await delay(600);
+
+  banner('HUMAN APPROVAL GATE');
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-hi">Assets assessed   : 5</span>');
+  await delay(200);
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-hi">Risks identified  : 8</span>');
+  await delay(200);
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-err">Critical / High   : 3  (score ≥ 17)</span>');
+  await delay(200);
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-warn">Elevated          : 5  (score 10–16)</span>');
+  await delay(200);
+  line('<span class="log-dim">['+ts()+']</span>  <span class="log-hi">Report hash        : <span class="log-cyan">'+hash.slice(0,24)+'...</span></span>');
+  await delay(400);
+  line('<span class="log-warn">  ⚠  PIPELINE HALTED — awaiting human decision</span>');
+
+  gate.classList.add('visible');
+  out.scrollTop = out.scrollHeight;
+}
+
+async function gateDecision(decision) {
+  gate.classList.remove('visible');
+  await delay(200);
+
+  if (decision === 'approve') {
+    banner('APPROVED · DELIVERING');
+    line('<span class="log-dim">['+ts()+']</span>  <span class="log-orch">Orchestrator       </span>  <span class="log-ok">✓ Report approved and signed. Delivering to stakeholders.</span>');
+    await delay(400);
+    line('<span class="log-dim">['+ts()+']</span>  <span class="log-orch">Orchestrator       </span>  <span class="log-hi">REPORT DELIVERED</span>');
+  } else {
+    banner('REJECTED · RESETTING');
+    line('<span class="log-dim">['+ts()+']</span>  <span class="log-orch">Orchestrator       </span>  <span class="log-err">✗ Report rejected. Returning to pipeline for re-assessment.</span>');
+    await delay(400);
+    line('<span class="log-dim">['+ts()+']</span>  <span class="log-orch">Orchestrator       </span>  <span class="log-warn">PIPELINE RESET — correct issues and re-run</span>');
+  }
+
+  await delay(300);
+  banner('AUDIT LOG (append-only)');
+  var events = [
+    'DISPATCH → AssetContextAgent',
+    'RECEIVED ← AssetContextAgent: 5 assets classified',
+    'DISPATCH → VulnerabilityAgent',
+    'RECEIVED ← VulnerabilityAgent: 6 CVEs scored',
+    'DISPATCH → ThreatIntelAgent',
+    'RECEIVED ← ThreatIntelAgent: 6 ATLAS TTPs mapped',
+    'DISPATCH → ControlMappingAgent',
+    'RECEIVED ← ControlMappingAgent: 6 gaps identified',
+    'DISPATCH → ReportGeneratorAgent',
+    'RECEIVED ← ReportGeneratorAgent: 8 risks in register',
+    'HUMAN GATE: ' + decision.toUpperCase(),
+    decision === 'approve' ? 'REPORT DELIVERED' : 'PIPELINE RESET',
+  ];
+  for (var i=0; i<events.length; i++) {
+    line('  <span class="log-dim">'+String(i+1).padStart(2,'0')+'  ['+ts()+']  </span><span class="log-hi">'+events[i]+'</span>');
+    await delay(80);
+  }
+
+  await delay(300);
+  line(decision === 'approve'
+    ? '<span class="log-ok">  Assessment complete.</span>'
+    : '<span class="log-warn">  Pipeline reset. Correct issues and re-run.</span>');
+
+  out.scrollTop = out.scrollHeight;
+  resetBtn.classList.add('visible');
+}
+
+function resetDemo() {
+  out.innerHTML = '<span class="log-line" style="color:#2a4a5e;">// Click RUN ASSESSMENT to start the 6-agent pipeline</span><span class="log-line" style="color:#2a4a5e;">// Each agent processes its data and passes results to the Orchestrator</span><span class="log-line" style="color:#2a4a5e;">// The pipeline halts at the human approval gate — you decide the outcome</span>';
+  gate.classList.remove('visible');
+  runBtn.disabled = false;
+  resetBtn.classList.remove('visible');
+}
+</script>
 
 <!-- FOOTER -->
 <footer>
