@@ -592,6 +592,7 @@
     <div class="stat"><span class="stat-num">55</span><span class="stat-label">Controls Assessed</span></div>
     <div class="stat"><span class="stat-num">20</span><span class="stat-label">Gaps Identified</span></div>
     <div class="stat"><span class="stat-num">3</span><span class="stat-label">Frameworks</span></div>
+    <div class="stat"><span class="stat-num">0</span><span class="stat-label">Dependencies</span></div>
   </div>
 
   <div class="pipeline reveal">
@@ -700,11 +701,30 @@
 
 <!-- DOCS -->
 <section id="docs">
-  <div class="section-label">03 // DOCUMENTATION</div>
+  <div class="section-label">03 // DOCUMENTATION & DEMO</div>
   <div class="section-title">Full security documentation</div>
   <div class="section-divider"></div>
 
+  <div class="terminal reveal" style="margin-bottom:2rem;">
+    <div class="terminal-bar">
+      <div class="t-dot t-red"></div>
+      <div class="t-dot t-yellow"></div>
+      <div class="t-dot t-green"></div>
+    </div>
+    <div style="color:var(--muted);margin-bottom:0.5rem;">// RUN THE PIPELINE LOCALLY — zero dependencies, standard Python only</div>
+    <div><span style="color:var(--muted)">$ </span><span style="color:var(--accent2)">git clone</span> <span style="color:var(--heading)">https://github.com/TanStegall/multi-agent-ai-risk-analyst</span></div>
+    <div><span style="color:var(--muted)">$ </span><span style="color:var(--accent2)">cd</span> <span style="color:var(--heading)">multi-agent-ai-risk-analyst</span></div>
+    <div><span style="color:var(--muted)">$ </span><span style="color:var(--accent2)">python3</span> <span style="color:var(--heading)">maars_demo.py</span></div>
+    <div style="margin-top:0.75rem;color:var(--muted)">→ Watch all 6 agents run in sequence. Type <span style="color:var(--accent2)">approve</span> or <span style="color:var(--accent3)">reject</span> at the human gate.</div>
+  </div>
+
   <div class="docs-grid">
+    <a href="https://github.com/TanStegall/multi-agent-ai-risk-analyst/blob/main/maars_demo.py" target="_blank" class="doc-card reveal" style="border-color:rgba(0,255,157,0.25);grid-column:1/-1;">
+      <div class="doc-arrow" style="color:var(--accent2);">↗</div>
+      <div class="doc-type" style="color:var(--accent2);">PYTHON · RUNNABLE DEMO</div>
+      <div class="doc-name">maars_demo.py</div>
+      <div class="doc-desc" style="max-width:640px;">Self-contained 6-agent pipeline — Orchestrator dispatches tasks, each specialist agent processes its data, results converge at the Report Generator, and the pipeline halts at the human approval gate. Run with <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.78rem;">python3 maars_demo.py</code> — no installs required.</div>
+    </a>
     <a href="https://github.com/TanStegall/multi-agent-ai-risk-analyst/blob/main/exec-summary.md" target="_blank" class="doc-card reveal">
       <div class="doc-arrow">↗</div>
       <div class="doc-type">EXECUTIVE · SUMMARY</div>
@@ -795,6 +815,7 @@
     <div class="check-item reveal"><span class="check-icon">[✓]</span>OWASP LLM Top 10 — all 10 categories</div>
     <div class="check-item reveal"><span class="check-icon">[✓]</span>NIST AI RMF — all 4 functions</div>
     <div class="check-item reveal"><span class="check-icon">[✓]</span>Human oversight gate — by architecture</div>
+    <div class="check-item reveal" style="border-color:rgba(0,255,157,0.2);"><span class="check-icon" style="color:var(--accent2);">[✓]</span>Runnable Python demo — zero dependencies</div>
   </div>
 </section>
 
